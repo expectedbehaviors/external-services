@@ -1,49 +1,12 @@
-# t3n Helm Charts
+# external-services
 
-[![license: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+> **Fork:** This repository is a fork of [t3n/helm-charts](https://github.com/t3n/helm-charts). We maintain only the **external-service** chart here, renamed and extended as **external-services** (multi-service via a `services` list). Original author: [t3n](https://github.com/t3n). We do not claim credit for the original design; only our changes are ours.
 
->A chart repository for the Kubernetes package manager Helm.
+Set the repo description (About) to: **Fork of t3n/helm-charts. Multi-service external-service chart.**
 
-## Project Status
+## Chart
 
-As of [PR #75](https://github.com/t3n/helm-charts/pull/75) we dropped support for Helm v2 and switched to Helm Chart apiVersion v2. We also switched labels to [Recommended Labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/). A detailed introduction on how to migrate without downtime can be found [here](LABEL.md)
-
-This project is still under active development, so you might run into [issues](https://github.com/t3n/helm-charts/issues). If you do, please don't be shy about letting us know, or better yet, contribute a fix or feature.
-We will also add more charts over time, so keep an eye on this repository.
-
-## Table of Contents
-
-- [Background](#background)
-- [Install](#install)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Background
-
-This repository contains charts to deploy Neos & Flow Applications for Kubernetes Helm. Charts are curated application definitions for Kubernetes Helm. For more information about installing and using Helm, see its
-[README.md](https://github.com/kubernetes/helm/tree/master/README.md). To get a quick introduction to charts see this [chart guide](https://helm.sh/docs/topics/charts/).
-
-## Install
-
-To add the t3n charts for your local client, run `helm repo add`:
-```
-$ helm repo add t3n https://storage.googleapis.com/t3n-helm-charts
-"t3n" has been added to your repositories
-```
-
-## Usage
-
-You can then run `helm search repo t3n` to see available charts. To install a chart just run `helm install t3n/<chart>`.
-
-For more information on using Helm, refer to the [Helm's documentation](https://helm.sh/docs/).
-
-## Contributing
-
-PRs accepted. Pipeline is using Helm v3.
-
-Small note: If editing the Readme, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
+The Helm chart lives in **[external-services/](external-services/)**. See [external-services/README.md](external-services/README.md) for install, values, and references.
 
 ## License
 

@@ -1,4 +1,0 @@
-apiVersion: v2
-name: mysql-backup
-version: 3.0.0
-deprecated: true

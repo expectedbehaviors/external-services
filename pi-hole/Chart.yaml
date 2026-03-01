@@ -1,5 +1,0 @@
-apiVersion: v2
-appVersion: "4.4"
-description: A black hole for Internet advertisements
-name: pi-hole
-version: 1.0.0
