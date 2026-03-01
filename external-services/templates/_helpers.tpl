@@ -8,9 +8,6 @@ Call with (dict "root" $ "service" $svc) so .root.Release and .service are avail
 {{- $ctx.service.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
 {{- $name := default $ctx.service.name $ctx.service.nameOverride | trunc 63 | trimSuffix "-" -}}
-{{- if contains $name $ctx.root.Release.Name -}}
-{{- $ctx.root.Release.Name | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
 {{- printf "%s-%s" $ctx.root.Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- end -}}
