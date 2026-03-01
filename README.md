@@ -14,6 +14,13 @@ This chart exposes **non-Kubernetes resources** through your ingress controller:
 
 - **1Password Connect** (optional): if you use `onepassworditem.enabled: true` to sync TLS or other secrets. The chart depends on [expectedbehaviors/OnePasswordItem-helm](https://github.com/expectedbehaviors/OnePasswordItem-helm); secrets are created in the release namespace (`.Release.Namespace`). Set `onepassworditem.items[]` with `{ item, name, type }` and reference the Secret name in your ingress TLS (e.g. `ingress.tls[].secretName`).
 
+## Values (onepassworditem)
+
+| Key | Description |
+|-----|-------------|
+| `onepassworditem.enabled` | If `true` (default), the subchart creates OnePasswordItem resources. Set `false` if you supply TLS or other secrets another way. |
+| `onepassworditem.items` | List of `{ item, name, type }`. `name` must match the Secret name referenced in your ingress TLS (e.g. `ingress.tls[].secretName`). |
+
 ---
 
 ## Requirements
@@ -109,6 +116,12 @@ services:
     type: ExternalName
     externalName: db.example.svc.cluster.local
 ```
+
+---
+
+## Template filenames
+
+This chart uses **camelCase plural** template filenames per project conventions: `services.yaml`, `ingresses.yaml`, `endpoints.yaml`. Legacy `service.yaml` and `ingress.yaml` (if present) are duplicates and should be removed from the repo so only the camelCase files remain.
 
 ---
 
