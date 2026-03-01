@@ -1,0 +1,43 @@
+{{- range .Values.services }}
+{{- if and .ingress .ingress.enabled (and .ports (ne (default "ClusterIP" .type) "ExternalName")) }}
+{{- $ctx := dict "root" $ "service" . }}
+{{- $fullName := include "external-services.fullname" $ctx }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "external-services.labels" $ctx | nindent 4 }}
+  {{- with .ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if .ingress.className }}
+  ingressClassName: {{ .ingress.className }}
+  {{- end }}
+  {{- with .ingress.tls }}
+  tls:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  rules:
+  {{- range .ports }}
+  {{- $svcPort := .port }}
+  {{- range .ingress.hosts | default list }}
+  - host: {{ .host | quote }}
+    http:
+      paths:
+        {{- range .paths | default (list "/") }}
+        - path: {{ . | quote }}
+          pathType: Prefix
+          backend:
+            service:
+              name: {{ $fullName }}
+              port:
+                number: {{ $svcPort }}
+        {{- end }}
+  {{- end }}
+  {{- end }}
+{{- end }}
+{{- end }}

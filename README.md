@@ -10,6 +10,12 @@ This chart exposes **non-Kubernetes resources** through your ingress controller:
 
 ---
 
+## Prerequisites
+
+- **1Password Connect** (optional): if you use `onepassworditem.enabled: true` to sync TLS or other secrets. The chart depends on [expectedbehaviors/OnePasswordItem-helm](https://github.com/expectedbehaviors/OnePasswordItem-helm); secrets are created in the release namespace (`.Release.Namespace`). Set `onepassworditem.items[]` with `{ item, name, type }` and reference the Secret name in your ingress TLS (e.g. `ingress.tls[].secretName`).
+
+---
+
 ## Requirements
 
 | Requirement | Version |
@@ -33,7 +39,7 @@ helm install my-external-services . -f my-values.yaml -n my-namespace --create-n
 **From a Helm repo (after we publish):**
 
 ```bash
-helm repo add expectedbehaviors https://expectedbehaviors.github.io/helm-charts
+helm repo add expectedbehaviors https://expectedbehaviors.github.io/external-services
 helm install my-external-services expectedbehaviors/external-services -f my-values.yaml -n my-namespace --create-namespace
 ```
 

@@ -18,3 +18,7 @@ sources:
 maintainers:
   - name: Expected Behaviors
     url: https://github.com/expectedbehaviors
+dependencies:
+  - name: onepassworditem
+    version: "1.1.1"
+    repository: https://expectedbehaviors.github.io/OnePasswordItem-helm
