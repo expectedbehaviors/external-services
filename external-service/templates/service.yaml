@@ -1,21 +1,32 @@
-{{- if or (eq .Values.type "ExternalName") (and .Values.addresses .Values.ports) }}
+{{- range .Values.services }}
+{{- $ctx := dict "root" $ "service" . }}
+{{- if eq (default "ClusterIP" .type) "ExternalName" }}
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "external-service.fullname" . }}
+  name: {{ include "external-services.fullname" $ctx }}
   labels:
-    {{ include "external-service.labels" . | indent 4 | trim }}
+    {{- include "external-services.labels" $ctx | nindent 4 }}
 spec:
-  type: {{ .Values.type }}
-{{- if eq .Values.type "ExternalName" }}
-  externalName: {{ required "`.Values.externalName` is not set." .Values.externalName}}
-{{- else}}
+  type: ExternalName
+  externalName: {{ required "externalName is required when type is ExternalName" .externalName }}
+{{- else if and .addresses .ports }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "external-services.fullname" $ctx }}
+  labels:
+    {{- include "external-services.labels" $ctx | nindent 4 }}
+spec:
+  type: {{ default "ClusterIP" .type }}
   ports:
-{{- range .Values.ports }}
+    {{- range .ports }}
     - port: {{ .port }}
       targetPort: {{ .name }}
       protocol: {{ default "TCP" .protocol }}
       name: {{ .name }}
-{{- end }}
+    {{- end }}
 {{- end }}
 {{- end }}

@@ -1,19 +1,23 @@
-{{- if and .Values.addresses .Values.ports }}
+{{- range .Values.services }}
+{{- if and .addresses .ports }}
+{{- $ctx := dict "root" $ "service" . }}
+---
 apiVersion: v1
 kind: Endpoints
 metadata:
-  name: {{ include "external-service.fullname" . }}
+  name: {{ include "external-services.fullname" $ctx }}
   labels:
-    {{ include "external-service.labels" . | indent 4 | trim }}
+    {{- include "external-services.labels" $ctx | nindent 4 }}
 subsets:
-  {{- range .Values.addresses }}
   - addresses:
-      - ip: {{ required "IP is not set." .ip }}
-  {{- end }}
+      {{- range .addresses }}
+      - ip: {{ required "addresses[].ip is required" .ip }}
+      {{- end }}
     ports:
-  {{- range .Values.ports }}
-      - port: {{ required "Port is not set." .port }}
+      {{- range .ports }}
+      - port: {{ required "ports[].port is required" .port }}
         protocol: {{ default "TCP" .protocol }}
-        name: {{ required "Port name is not set." .name }}
-  {{- end }}
-{{- end -}}
+        name: {{ required "ports[].name is required" .name }}
+      {{- end }}
+{{- end }}
+{{- end }}

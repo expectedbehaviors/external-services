@@ -1,24 +1,28 @@
-nameOverride: ""
-fullnameOverride: ""
-
-ingress:
-  enabled: false
-  annotations: {}
-
-type: ClusterIP
-
-# Both addresses and ports are required to install a service with the
-# corresponding endpoint.
-addresses: []
-  # - ip: 10.92.96.3
-ports: []
-  # - port: 3306
-  #   name: mysql
-  #   ingress:
-  #     hosts:
-  #       - host: localhost
-  #         paths:
-  #           - '/'
-
-# If type is ExternalName, externalName must be set
-externalName: ""
+# List of external services. Each item matches the upstream t3n external-service chart schema:
+# name, nameOverride, fullnameOverride, type, addresses, ports, ingress, externalName.
+# See README and https://github.com/t3n/helm-charts/blob/master/external-service/values.yaml
+#
+# Required per service: name.
+# ClusterIP: set addresses and ports. ExternalName: set type and externalName.
+services: []
+#  - name: bmc
+#    nameOverride: ""
+#    fullnameOverride: ""
+#    type: ClusterIP
+#    addresses:
+#      - ip: 10.0.0.1
+#    ports:
+#      - port: 80
+#        name: http
+#        ingress:
+#          hosts:
+#            - host: bmc.example.com
+#              paths: ["/"]
+#    ingress:
+#      enabled: true
+#      annotations: {}
+#  - name: external-db
+#    nameOverride: ""
+#    fullnameOverride: ""
+#    type: ExternalName
+#    externalName: db.example.svc.cluster.local

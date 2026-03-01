@@ -1,42 +1,25 @@
-{{/* vim: set filetype=mustache: */}}
 {{/*
-Expand the name of the chart.
+Fork of t3n/helm-charts external-service. Multi-service support.
+Call with (dict "root" $ "service" $svc) so .root.Release and .service are available.
 */}}
-{{- define "external-service.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{/*
-Create a default fully qualified app name.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-If release name contains chart name it will be used as a full name.
-*/}}
-{{- define "external-service.fullname" -}}
-{{- if .Values.fullnameOverride -}}
-{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
+{{- define "external-services.fullname" -}}
+{{- $ctx := . -}}
+{{- if $ctx.service.fullnameOverride -}}
+{{- $ctx.service.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
-{{- $name := default .Chart.Name .Values.nameOverride -}}
-{{- if contains $name .Release.Name -}}
-{{- .Release.Name | trunc 63 | trimSuffix "-" -}}
+{{- $name := default $ctx.service.name $ctx.service.nameOverride | trunc 63 | trimSuffix "-" -}}
+{{- if contains $name $ctx.root.Release.Name -}}
+{{- $ctx.root.Release.Name | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-%s" $ctx.root.Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- end -}}
 {{- end -}}
 
-{{/*
-Create chart name and version as used by the chart label.
-*/}}
-{{- define "external-service.chart" -}}
-{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{/*
-Common labels
-*/}}
-{{- define "external-service.labels" -}}
-app.kubernetes.io/name: external-service
-app.kubernetes.io/instance: {{ .Release.Name }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
-helm.sh/chart: {{ include "external-service.chart" . }}
+{{- define "external-services.labels" -}}
+{{- $ctx := . -}}
+app.kubernetes.io/name: external-services
+app.kubernetes.io/instance: {{ $ctx.root.Release.Name }}
+app.kubernetes.io/managed-by: {{ $ctx.root.Release.Service }}
+app.kubernetes.io/component: {{ $ctx.service.name | quote }}
 {{- end -}}
