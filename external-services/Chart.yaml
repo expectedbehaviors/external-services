@@ -1,0 +1,19 @@
+apiVersion: v2
+name: external-services
+description: Expose multiple non-Kubernetes resources through ingress (BMCs, Pi-hole, ESXi). Fork of t3n external-service; one release, many services via a services list.
+type: application
+version: 1.2.0
+appVersion: "1.2.0"
+kubeVersion: ">=1.19-0"
+keywords:
+  - external-dns
+  - ingress
+  - bmc
+  - proxy
+  - fork
+home: https://github.com/t3n/helm-charts/tree/master/external-service
+sources:
+  - https://github.com/t3n/helm-charts
+maintainers:
+  - name: Expected Behaviors
+    url: https://github.com/expectedbehaviors

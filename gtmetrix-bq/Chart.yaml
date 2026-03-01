@@ -1,5 +1,0 @@
-apiVersion: v2
-appVersion: "0.2.0"
-description: A script running browser test of specified urls through GTmetrix and saving metrics in BigQuery.
-name: gtmetrix-bq
-version: 1.0.0

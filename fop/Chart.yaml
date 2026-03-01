@@ -1,5 +1,0 @@
-apiVersion: v2
-appVersion: "2.1"
-description: A Helm chart for Apache-FOP HTTP
-name: fop
-version: 1.0.0

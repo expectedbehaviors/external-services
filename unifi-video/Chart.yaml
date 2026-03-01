@@ -1,5 +1,0 @@
-apiVersion: v2
-appVersion: "3.10.10"
-description: A Helm chart for Ubiquitis Unifi Video Controller
-name: unifi-video
-version: 1.0.0

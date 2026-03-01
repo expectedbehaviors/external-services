@@ -1,0 +1,18 @@
+# Patterns to ignore when building packages.
+# From upstream t3n/helm-charts external-service.
+.DS_Store
+.git/
+.gitignore
+.bzr/
+.bzrignore
+.hg/
+.hgignore
+.svn/
+*.swp
+*.bak
+*.tmp
+*~
+.project
+.idea/
+*.tmproj
+.vscode/

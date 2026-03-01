@@ -1,0 +1,23 @@
+{{- range .Values.services }}
+{{- if and .addresses .ports }}
+{{- $ctx := dict "root" $ "service" . }}
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: {{ include "external-services.fullname" $ctx }}
+  labels:
+    {{- include "external-services.labels" $ctx | nindent 4 }}
+subsets:
+  - addresses:
+      {{- range .addresses }}
+      - ip: {{ required "addresses[].ip is required" .ip }}
+      {{- end }}
+    ports:
+      {{- range .ports }}
+      - port: {{ required "ports[].port is required" .port }}
+        protocol: {{ default "TCP" .protocol }}
+        name: {{ required "ports[].name is required" .name }}
+      {{- end }}
+{{- end }}
+{{- end }}

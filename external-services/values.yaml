@@ -1,0 +1,28 @@
+# List of external services. Each item matches the upstream t3n external-service chart schema:
+# name, nameOverride, fullnameOverride, type, addresses, ports, ingress, externalName.
+# See README and https://github.com/t3n/helm-charts/blob/master/external-service/values.yaml
+#
+# Required per service: name.
+# ClusterIP: set addresses and ports. ExternalName: set type and externalName.
+services: []
+#  - name: bmc
+#    nameOverride: ""
+#    fullnameOverride: ""
+#    type: ClusterIP
+#    addresses:
+#      - ip: 10.0.0.1
+#    ports:
+#      - port: 80
+#        name: http
+#        ingress:
+#          hosts:
+#            - host: bmc.example.com
+#              paths: ["/"]
+#    ingress:
+#      enabled: true
+#      annotations: {}
+#  - name: external-db
+#    nameOverride: ""
+#    fullnameOverride: ""
+#    type: ExternalName
+#    externalName: db.example.svc.cluster.local
