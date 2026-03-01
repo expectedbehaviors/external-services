@@ -11,7 +11,6 @@ Call with (dict "root" $ "service" $svc) so .root.Release and .service are avail
 {{- printf "%s-%s" $ctx.root.Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- end -}}
-{{- end -}}
 
 {{- define "external-services.labels" -}}
 {{- $ctx := . -}}

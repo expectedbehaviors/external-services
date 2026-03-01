@@ -11,8 +11,9 @@ keywords:
   - bmc
   - proxy
   - fork
-home: https://github.com/t3n/helm-charts/tree/master/external-service
+home: https://github.com/expectedbehaviors/external-services
 sources:
+  - https://github.com/expectedbehaviors/external-services
   - https://github.com/t3n/helm-charts
 maintainers:
   - name: Expected Behaviors
