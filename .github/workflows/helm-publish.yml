@@ -35,4 +35,5 @@ jobs:
           chart_name: external-services
           helm_repo_name: onepassworditem
           helm_repo_url: https://expectedbehaviors.github.io/OnePasswordItem-helm
+          tag_version_prefix: "external-services-v"
           release_tag: ${{ github.event.inputs.release_tag }}
