@@ -2,8 +2,38 @@ apiVersion: v1
 entries:
   external-services:
   - apiVersion: v2
+    appVersion: 1.0.4
+    created: "2026-03-02T05:47:34.781421745Z"
+    dependencies:
+    - name: onepassworditem
+      repository: https://expectedbehaviors.github.io/OnePasswordItem-helm
+      version: 1.1.1
+    description: Expose multiple non-Kubernetes resources through ingress (BMCs, Pi-hole,
+      ESXi). Fork of t3n external-service; one release, many services via a services
+      list.
+    digest: 57f967df88e9d4678fa0127ab1acff53b51564f2cd7866e057a01c59b54af273
+    home: https://github.com/expectedbehaviors/external-services
+    keywords:
+    - external-dns
+    - ingress
+    - bmc
+    - proxy
+    - fork
+    kubeVersion: '>=1.19-0'
+    maintainers:
+    - name: Expected Behaviors
+      url: https://github.com/expectedbehaviors
+    name: external-services
+    sources:
+    - https://github.com/expectedbehaviors/external-services
+    - https://github.com/t3n/helm-charts
+    type: application
+    urls:
+    - https://expectedbehaviors.github.io/external-services/external-services-1.0.4.tgz
+    version: 1.0.4
+  - apiVersion: v2
     appVersion: 1.0.2
-    created: "2026-03-01T07:18:57.020702236Z"
+    created: "2026-03-02T05:47:34.78075188Z"
     dependencies:
     - name: onepassworditem
       repository: https://expectedbehaviors.github.io/OnePasswordItem-helm
@@ -33,7 +63,7 @@ entries:
     version: 1.0.2
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2026-03-01T07:18:57.020039099Z"
+    created: "2026-03-02T05:47:34.780119865Z"
     dependencies:
     - name: onepassworditem
       repository: https://expectedbehaviors.github.io/OnePasswordItem-helm
@@ -61,4 +91,4 @@ entries:
     urls:
     - https://expectedbehaviors.github.io/external-services/external-services-1.0.1.tgz
     version: 1.0.1
-generated: "2026-03-01T07:18:57.019190543Z"
+generated: "2026-03-02T05:47:34.77934229Z"
