@@ -33,7 +33,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           chart_path: .
           chart_name: external-services
-          tag_version_prefix: "external-services-v"
           helm_repo_name: onepassworditem
           helm_repo_url: https://expectedbehaviors.github.io/OnePasswordItem-helm
           release_tag: ${{ github.event.inputs.release_tag }}

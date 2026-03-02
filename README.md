@@ -54,6 +54,16 @@ With Argo CD or GitOps: point the Application at this repo (path: `.`) and suppl
 
 ---
 
+## Subcharts
+
+| Subchart | Source | Values prefix | Description |
+|----------|--------|---------------|-------------|
+| **onepassworditem** | [expectedbehaviors/OnePasswordItem-helm](https://github.com/expectedbehaviors/OnePasswordItem-helm) | `onepassworditem.*` | Optional TLS/other secrets sync into the release namespace. |
+
+All inputs: **`services`** (list of service definitions: name, type, addresses, ports, ingress, externalName), **`onepassworditem.enabled`**, **`onepassworditem.items`**. Defaults: see `values.yaml`; `services: []` installs nothing.
+
+---
+
 ## Values (per service)
 
 Each entry in **`services`** follows the [original chart values](https://github.com/t3n/helm-charts/blob/master/external-service/values.yaml). Default: `services: []` (nothing installed).

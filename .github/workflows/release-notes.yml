@@ -31,13 +31,14 @@ jobs:
         id: tag
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_PREFIX: "external-services-v"
         run: |
           if [ "${{ github.event_name }}" = "release" ]; then
             echo "tag=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
           elif [ -n "${{ github.event.inputs.release_tag }}" ]; then
             echo "tag=${{ github.event.inputs.release_tag }}" >> $GITHUB_OUTPUT
           else
-            TAG=$(gh api "repos/${{ github.repository }}/releases?per_page=20" -q '[.[] | select(.tag_name | startswith("external-services-v")) | .tag_name][0]')
+            TAG=$(gh api "repos/${{ github.repository }}/releases?per_page=20" -q '[.[] | select(.tag_name | startswith("'"$TAG_PREFIX"'")) | .tag_name][0]')
             [ -z "$TAG" ] || [ "$TAG" = "null" ] && exit 1
             echo "tag=$TAG" >> $GITHUB_OUTPUT
           fi
@@ -48,4 +49,4 @@ jobs:
           openai_api_key: ${{ secrets.OPENAI_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           release_tag: ${{ steps.tag.outputs.tag }}
-          prompt_instruction: "Include chart version, migration notes, breaking changes (e.g. values.services schema), and key values for adopters."
+          prompt_instruction: "Include concrete datapoints: chart version, migration notes, breaking changes, and key values (services list, ingress, onepassworditem)."
