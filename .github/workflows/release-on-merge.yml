@@ -1,6 +1,11 @@
 name: Release external-services chart on merge to main
 
 on:
+  workflow_dispatch:
+    inputs:
+      baseline_version:
+        description: 'Create baseline release with this version (e.g. 1.0.0) when no tags exist. Leave empty for normal bump.'
+        required: false
   push:
     branches: [main]
     paths:
@@ -22,7 +27,10 @@ jobs:
         with:
           version: "v3.14.0"
       - name: Lint chart
-        run: helm lint .
+        run: |
+          helm repo add onepassworditem https://expectedbehaviors.github.io/OnePasswordItem-helm
+          helm dependency update .
+          helm lint .
 
   release:
     runs-on: ubuntu-latest
@@ -38,3 +46,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tag_prefix: "external-services-v"
+          initial_version: ${{ github.event.inputs.baseline_version || '' }}
