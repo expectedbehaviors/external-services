@@ -62,11 +62,40 @@ With Argo CD or GitOps: point the Application at this repo (path: `.`) and suppl
 
 All inputs: **`services`** (list of service definitions: name, type, addresses, ports, ingress, externalName), **`onepassworditem.enabled`**, **`onepassworditem.items`**. Defaults: see `values.yaml`; `services: []` installs nothing.
 
+## Configuration reference (all inputs)
+
+Every value is documented below. The `services` list follows the [t3n external-service](https://github.com/t3n/helm-charts/blob/master/external-service/values.yaml) schema; onepassworditem is from [expectedbehaviors/OnePasswordItem-helm](https://github.com/expectedbehaviors/OnePasswordItem-helm).
+
+### Root: services (per-service, from t3n external-service)
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `services` | list | `[]` | List of external service definitions. Empty = nothing installed. |
+| `services[].name` | string | required | Service name (used in resource names unless overridden). |
+| `services[].nameOverride` | string | — | Override name component. |
+| `services[].fullnameOverride` | string | — | Override full resource name. |
+| `services[].type` | string | `"ClusterIP"` | `ClusterIP` or `ExternalName`. |
+| `services[].addresses` | list | — | For ClusterIP: list of `{ ip: "..." }`. |
+| `services[].ports` | list | — | For ClusterIP: list of `{ name, port, protocol?, ingress?: { hosts: [{ host, paths }] } }`. |
+| `services[].ingress.enabled` | bool | — | Enable Ingress for this service. |
+| `services[].ingress.annotations` | object | `{}` | Ingress annotations. |
+| `services[].ingress.className` | string | — | Ingress class. |
+| `services[].ingress.tls` | list | `[]` | TLS (secretName, hosts). |
+| `services[].externalName` | string | — | For ExternalName type: target DNS name (e.g. `db.example.svc.cluster.local`). |
+
+### Subchart: onepassworditem
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `onepassworditem.enabled` | bool | `true` | Create OnePasswordItem resources; set `false` if supplying TLS/other secrets another way. |
+| `onepassworditem.defaultVault` | string | `""` | Default vault for items. |
+| `onepassworditem.items` | list | `[]` | List of `{ item, name, type }`; `name` must match `ingress.tls[].secretName` or other Secret refs. |
+
 ---
 
 ## Values (per service)
 
-Each entry in **`services`** follows the [original chart values](https://github.com/t3n/helm-charts/blob/master/external-service/values.yaml). Default: `services: []` (nothing installed).
+Each entry in **`services`** follows the [original chart’s values](https://github.com/t3n/helm-charts/blob/master/external-service/values.yaml). Default: `services: []` (nothing installed).
 
 | Key | Required | Description |
 |-----|----------|-------------|
@@ -131,7 +160,7 @@ services:
 
 ## Template filenames
 
-This chart uses **camelCase plural** template filenames per project conventions: `services.yaml`, `ingresses.yaml`, `endpoints.yaml`. Legacy `service.yaml` and `ingress.yaml` (if present) are duplicates and should be removed from the repo so only the camelCase files remain.
+This chart uses **camelCase plural** template filenames: `services.yaml`, `ingresses.yaml`, `endpoints.yaml`. Do not use legacy `service.yaml` or `ingress.yaml`.
 
 ---
 
